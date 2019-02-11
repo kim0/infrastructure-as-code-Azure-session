@@ -19,4 +19,9 @@ resource "azuread_service_principal_password" "devopspassword" {
   service_principal_id = "${azuread_service_principal.devopsadmin.id}"
   value                = "${random_string.sppasswd.result}"
   end_date             = "2019-05-01T01:02:03Z"
+  
+  # wait 30s for server replication before attempting role assignment creation
+  provisioner "local-exec" {
+    command = "sleep 30"
+  }
 }

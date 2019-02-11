@@ -4,6 +4,7 @@ resource "azurerm_resource_group" "k8s" {
 }
 
 resource "azurerm_kubernetes_cluster" "k8s" {
+  depends_on          = ["azuread_service_principal_password.devopspassword"]
   name                = "${var.cluster_name}"
   location            = "${azurerm_resource_group.k8s.location}"
   resource_group_name = "${azurerm_resource_group.k8s.name}"
